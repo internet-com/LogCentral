@@ -16,11 +16,12 @@ mvn clean install -Dmaven.test.skip=true
 </pre>
 Target run time is a WSO2 Application Server (tested with WSO2 AS 5.2.0, but you can try Tomcat).
  
-WSO2 AS greenhorns: Download WSO2 AS from <a href="http://www.wso2.com">WSO2</a>, unzip and double click wso2as-x.z.z/bin/wso2server.sh or .bat
+WSO2 AS greenhorns: Download WSO2 AS from <a href="http://www.wso2.com">WSO2</a>, unzip and double click 
+<tt>wso2as-x.z.z/bin/wso2server.sh</tt> or .bat
 
 
 To deploy, you can use the Jenkins WSO2 AS deployer plug in or upload it manually: 
-Use the WSO2 Carbon web GUI on https://localhost:9443/carbon and log in as admin with password admin.
+Use the WSO2 Carbon web GUI on <tt>https://localhost:9443/carbon</tt>	 and log in as admin with password admin.
 Main > Add > Web Applications (select LogCentral.war file in the "target" directory)
 
 
@@ -52,6 +53,6 @@ Test
 ====
 Use the RESTclient browser plug in and generate a GET request to the URL, e.g. http://localhost:9763/LogCentral/services/logfile
 
-You should get a 
+You should get a <tt>401 Unauthorized</tt>
 
 Add the Basic Authentication: by default you can use the admin user of WSO2 (default password is admin).
