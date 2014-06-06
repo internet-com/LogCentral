@@ -51,8 +51,21 @@ select * from logfiles;
 
 Test
 ====
+Simple test:
+------------
+Just paste the URL <tt>http://localhost:9763/LogCentral/services/logfile</tt> into you browser and you will get the Basic Auth pup up box. Type in admin as user and admin as password, which is default for WSO2.
+You should get the sampe data from Cassandra above. 
+
+High Comfort test:
+------------------
 Use the RESTclient browser plug in and generate a GET request to the URL, e.g. http://localhost:9763/LogCentral/services/logfile
 
 You should get a <tt>401 Unauthorized</tt>
 
 Add the Basic Authentication: by default you can use the admin user of WSO2 (default password is admin).
+
+TODO
+====
+# implement some TODOs in the code
+# implementation of web download page
+
