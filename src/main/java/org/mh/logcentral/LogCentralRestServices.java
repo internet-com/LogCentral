@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.MultivaluedMap;
 
 import org.mh.logcentral.cassandra.CassandraDB;
+import org.mh.logcentral.cassandra.LogFileDB;
 import org.mh.logcentral.model.LogFileList;
 import org.mh.logcentral.model.UploadStatus;
 import org.apache.cxf.jaxrs.ext.multipart.Attachment;
@@ -25,84 +26,96 @@ import javax.servlet.http.HttpServletRequest;
 
 import java.io.*;
 
-/** Simple but usefull service to upload files and download them using a web page */
+/**
+ * Simple but usefull service to upload files and download them using a web page
+ */
 public class LogCentralRestServices {
-	
-    private static final Logger LOGGER = Logger.getLogger( "LogCentralRestServices" );
 
+	/** logger */
+	private static final Logger LOGGER = Logger.getLogger( "LogCentralRestServices" );
+
+	
+	/**
+	 * The HTTP PUT stores a (text) file to the Cassandra DB
+	 * @return upload status (JSON)
+	 */
 	@PUT
 	@Path("/logfile")
-	@Consumes("application/json") // todo: how to handle HTML upload
-	public Response uploadLog( ) {
-		LOGGER.info("Upload file...");
+	@Consumes("application/json")
+	public Response uploadLog() {
+		LOGGER.info( "Upload file..." );
 		UploadStatus result = new UploadStatus();
-		
+
 		// TODO do upload
-		
-		result.setResult( "OK, but DB handling is still a todo, so only dummy code here!" );		
+
+		result.setResult( "OK, but DB handling is still a todo, so only dummy code here!" );
 		return Response.ok().entity( result ).type( MediaType.APPLICATION_JSON ).build();
 	}
 
-
+	/**
+	 * Get meta data for all files stored in the Cassandra DB
+	 * @return JSON list of files in the DB
+	 */
 	@GET
 	@Path("/logfile")
 	@Produces("application/json")
 	@RolesAllowed("admin")
 	public Response listLogFiles() {
-		LOGGER.info("List all files...");
+		LOGGER.info( "List all files..." );
 		LogFileList resultFileList = new LogFileList();
-		
-		CassandraDB db = new CassandraDB();
-		db.connect( "127.0.0.1" );
-		// TODO get file list from db
-
+		// db code
+		LogFileDB db = new LogFileDB();
+		db.connect();
+		// here it rocks
 		resultFileList = db.getFileList();
+		// polite, but does not hurt 
 		db.close();
+		// the magic marshaling line
 		return Response.ok().entity( resultFileList ).type( MediaType.APPLICATION_JSON ).build();
 	}
-   
-	
-    @POST
-    @Path("/file")
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response uploadFile(List<Attachment> attachments,@Context HttpServletRequest request) {
-        for(Attachment attr : attachments) {
-            DataHandler handler = attr.getDataHandler();
-            try {
-                InputStream stream = handler.getInputStream();
-                MultivaluedMap map = attr.getHeaders();
-                OutputStream out = new FileOutputStream(new File(getFileName(map)));
- 
-                int read = 0;
-                byte[] bytes = new byte[1024];
-                while ((read = stream.read(bytes)) != -1) {
-                    out.write(bytes, 0, read);
-                }
-                stream.close();
-                out.flush();
-                out.close();
-            } catch(Exception e) {
-              e.printStackTrace();
-            }
-        }
- 
-        return Response.ok("file uploaded").build();
-    }
- 
-    private String getFileName(MultivaluedMap<String, String> header) {
- 
-        String[] contentDisposition = header.getFirst("Content-Disposition").split(";");
- 
-        for (String filename : contentDisposition) {
-            if ((filename.trim().startsWith("filename"))) {
- 
-                String[] name = filename.split("=");
- 
-                String finalFileName = name[1].trim().replaceAll("\"", "");
-                return finalFileName;
-            }
-        }
-        return "unknown";
-    }
-	
+
+	/** found this code -- todo: test it */
+	@POST
+	@Path("/file")
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	public Response uploadFile( List<Attachment> attachments, @Context HttpServletRequest request ) {
+		for ( Attachment attr : attachments ) {
+			DataHandler handler = attr.getDataHandler();
+			try {
+				InputStream upload = handler.getInputStream();
+				MultivaluedMap httpHeader = attr.getHeaders();
+				OutputStream out = new FileOutputStream( new File( getFileName( httpHeader ) ) );
+
+				int read = 0;
+				byte[] bytes = new byte[1024];
+				while ( (read = upload.read( bytes )) != -1 ) {
+					out.write( bytes, 0, read );
+				}
+				upload.close();
+				out.flush();
+				out.close();
+			} catch ( Exception e ) {
+				e.printStackTrace();
+			}
+		}
+
+		return Response.ok( "file uploaded" ).build();
+	}
+
+	/** helper */
+	private String getFileName( MultivaluedMap<String, String> header ) {
+		String[] contentDisposition = header.getFirst( "Content-Disposition" ).split( ";" );
+
+		for ( String filename : contentDisposition ) {
+			if ( (filename.trim().startsWith( "filename" )) ) {
+
+				String[] name = filename.split( "=" );
+
+				String finalFileName = name[1].trim().replaceAll( "\"", "" );
+				return finalFileName;
+			}
+		}
+		return "unknown";
+	}
+
 }

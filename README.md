@@ -9,13 +9,18 @@ Use case  examples:
 
 Build from code
 ===============
+<pre>
+git clone https://github.com/ma-ha/LogCentral.git
+cd LogCentral
 mvn clean install -Dmaven.test.skip=true
-
+</pre>
 Target run time is a WSO2 Application Server (tested with WSO2 AS 5.2.0, but you can try Tomcat).
  
 WSO2 AS greenhorns: Download WSO2 AS from <a href="http://www.wso2.com">WSO2</a>, unzip and double click wso2as-x.z.z/bin/wso2server.sh or .bat
 
+
 To deploy, you can use the Jenkins WSO2 AS deployer plug in or upload it manually: 
+Use the WSO2 Carbon web GUI on https://localhost:9443/carbon and log in as admin with password admin.
 Main > Add > Web Applications (select LogCentral.war file in the "target" directory)
 
 
@@ -42,3 +47,11 @@ INSERT INTO logfiles ( log_id,  device, upload_time, content, tenant)  VALUES ( 
 INSERT INTO logfiles ( log_id,  device, upload_time, content, tenant)  VALUES ( 550e8400-e29b-41d4-a716-446655440000 , 'pi', '2014-06-05 22:30:01', 'content2', 'default' );
 select * from logfiles;
 </pre>
+
+Test
+====
+Use the RESTclient browser plug in and generate a GET request to the URL, e.g. http://localhost:9763/LogCentral/services/logfile
+
+You should get a 
+
+Add the Basic Authentication: by default you can use the admin user of WSO2 (default password is admin).

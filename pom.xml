@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.mh.logcentral</groupId>
 	<artifactId>LogCentral</artifactId>
-	<version>0.1.1</version>
+	<version>0.1.2</version>
 	<packaging>war</packaging>
 	<name>LogCentralServer</name>
 	<description>LogCentral is a central service, which store files by HTTP PUT request and provides a web UI to download the files.</description>
