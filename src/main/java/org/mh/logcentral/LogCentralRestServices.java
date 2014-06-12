@@ -67,6 +67,7 @@ public class LogCentralRestServices {
 		LogFileDB db = new LogFileDB();
 		db.connect();
 		// here it rocks
+		
 		resultFileList = db.getFileList();
 		// polite, but does not hurt 
 		db.close();

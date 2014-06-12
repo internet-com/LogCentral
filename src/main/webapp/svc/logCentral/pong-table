@@ -1,0 +1,16 @@
+{
+    "dataURL": "../../services/logfile",
+    "dataDocSubPath" : "logFileList.fileList",
+    "filter": {
+        "dataReqParams": [ {"id":"date", "label":"Date"}, {"id":"file", "label":"&nbsp;Log search"}  ],
+        "dataReqParamsSrc": "Form", 	
+        "dataReqParamsBt": "Apply Filter"
+    },
+    "rowId": "blogMsgId",
+	"cols" : [
+		{ "id": "uploadTime", "label": "Date", "cellType": "text" }, 
+		{ "id": "device", "label": "Device", "cellType": "text" }, 
+		{ "id": "link", "label": "Download", "cellType": "linkLink" } 
+	],
+	"maxRows":"10"
+}

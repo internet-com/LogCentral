@@ -1,0 +1,30 @@
+{
+  "layout": {
+    "title": "PoNG Demo",
+    "header": {
+      "logoURL": "logo2.png",
+      "linkList": [
+      	{ "text":"Help", "url": "http://mh-svr.de/mw/index.php/PoNG"}
+      ],
+      "modules" : [ 
+      	{ "id": "LangSel", "type": "i18n", "param": { "langList": [ "EN","DE" ] } }      ] 
+    },
+    "rows": [
+      {
+        "rowId": "log-download",
+        "title": "Log File Download",
+        "height": "500px",
+        "resourceURL": "svc/logCentral",
+        "type": "pong-table",
+        "decor" : "decor"
+      }
+    ],
+    "footer": {
+      "copyrightText": "Powered by PoNG v0.2, &copy; 2013, MH.",
+      "linkList": [
+      	{ "text":"Impressum", "url": "impress.html"},
+      	{ "text":"Terms Of Usage", "url": "license.html"}
+      ]	
+    }
+  }
+}

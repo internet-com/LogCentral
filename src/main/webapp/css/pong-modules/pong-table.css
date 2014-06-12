@@ -1,0 +1,18 @@
+
+.pongTable {
+	font-size:10pt;
+}
+
+.pongTableFrm button { 
+	font-size:10pt; font-style: normal; font-weight: normal;  
+}
+
+.pongTableFrm p { 
+	margin: 2px; 
+}
+
+.pongTableFrm label { 
+	font-size:10pt; font-style: normal; font-weight: normal; 
+	width: 5em; 
+	display: block; float: left;
+}

@@ -1,0 +1,63 @@
+/* You can add all your custom styles here */
+
+body {
+		font-family: "Trebuchet MS", "Helvetica", "Arial",  "Verdana", "sans-serif";
+}
+
+.pongListCellmsg {
+	width:700px;
+}
+.pongListCelldate {
+	width:50px;
+}
+.pongListCellauthor {
+	width:150px;
+	font-weight: bold;
+}
+.pongListCelllink {
+	width:50px;
+}
+#header .header-links {
+	position : absolute;
+	top: 5px;
+	right: 10px;
+	font-size: 10pt;
+	color: gray;
+	height: 20px;
+}
+
+#wikiContent {
+ width: 970px;
+ height: 530px;	
+ font-size: 0.8em;
+}
+#wikiContent a:link{color:#333;}
+#wikiContent a:visited{color:#333;}
+#wikiContent a:hover{color:#333;}
+#wikiContent a:active{color:#333;} 
+
+.pongMasterDetailsFrmField label {
+	display: block;  
+	float: left;
+	margin:  5px 0 0 0; 
+	width: 100px; 
+}
+
+#Sec {
+	position : absolute;
+	top: 5px;
+	right: 50px;
+	font-size: 10pt;
+	color:#CCC;
+	height: 20px;
+}
+#Sec select { 
+	font-size: 10pt;
+	color:#AAA;
+	background: #333;
+	padding: 1px;
+	line-height: 1;
+   	border: 0;
+   	border-radius: 0;
+   	-webkit-appearance: none;
+}
